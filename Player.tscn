@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://Assets/Free/Main Characters/Ninja Frog/Idle (32x32).png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Assets/Free/Main Characters/Ninja Frog/Double Jump (32x32).png" type="Texture" id=6]
 [ext_resource path="res://Assets/Free/Main Characters/Ninja Frog/Wall Jump (32x32).png" type="Texture" id=7]
 [ext_resource path="res://PlayerLight.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Sound_Effects/jump_1.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sound_Effects/jump_2.wav" type="AudioStream" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -429,3 +431,11 @@ drag_margin_right = 0.3
 drag_margin_bottom = 0.3
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="Jump_1_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -7.09
+
+[node name="Jump_2_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -7.068

@@ -48,11 +48,13 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("ui_up"):
 			jump_counter = 1
 			motion.y = -JUMP_FORCE
+			$Jump_2_Sound.play()
 	else:
 		if Input.is_action_just_pressed("ui_up"):
 			if jump_counter == 1:
 				jump_counter = 2
 				motion.y = -JUMP_FORCE
+				$Jump_1_Sound.play()
 		elif (jump_counter == 1):
 			if (motion.y <= 0):
 				animationPlayer.play("Jump")
@@ -75,3 +77,6 @@ func _physics_process(delta):
 
 	# Returns the leftover Vector motion (collision = no leftover motion downwards, reset fall  speed)
 	motion = move_and_slide(motion, Vector2.UP)
+
+func is_player():
+	pass

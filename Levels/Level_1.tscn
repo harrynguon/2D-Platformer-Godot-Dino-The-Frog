@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Levels/Level_Skeleton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Free/Background/Green.png" type="Texture" id=2]
@@ -7,9 +7,20 @@
 [ext_resource path="res://CollisionDetection.tscn" type="PackedScene" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Free/Background/Brown.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sound_Effects/hurry_up.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Sound_Effects/get_out_water.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sound_Effects/get_in_water.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Music/MainMenu.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sound_Effects/congratulations.wav" type="AudioStream" id=12]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 10, 83.6011 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 3.80981, 26.0671 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 257.214, 35.6788 )
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
@@ -125,6 +136,25 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection/Area2D" index="0"]
 shape = SubResource( 5 )
 
+[node name="Hurry" type="Area2D" parent="Detection" index="5"]
+position = Vector2( 649.159, 332.98 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection/Hurry" index="0"]
+shape = SubResource( 6 )
+
+[node name="WaterDetector" type="Area2D" parent="Detection" index="6"]
+position = Vector2( 1036.61, 705.84 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection/WaterDetector" index="0"]
+shape = SubResource( 7 )
+
 [node name="Lights" type="Node2D" parent="." index="5"]
 
 [node name="Light_1" parent="Lights" index="0" instance=ExtResource( 4 )]
@@ -149,6 +179,9 @@ material = SubResource( 4 )
 position = Vector2( 984, 848 )
 scale = Vector2( 10.25, 5.875 )
 texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TextureRect" type="TextureRect" parent="." index="8"]
 show_behind_parent = true
@@ -163,8 +196,29 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="Audio" type="Node2D" parent="." index="9"]
+pause_mode = 2
+
+[node name="Hurry_Sound" type="AudioStreamPlayer" parent="Audio" index="0"]
+stream = ExtResource( 8 )
+
+[node name="Get_In_Water" type="AudioStreamPlayer" parent="Audio" index="1"]
+stream = ExtResource( 10 )
+
+[node name="Get_Out_Water" type="AudioStreamPlayer" parent="Audio" index="2"]
+stream = ExtResource( 9 )
+
+[node name="Music" type="AudioStreamPlayer" parent="Audio" index="3"]
+stream = ExtResource( 11 )
+
+[node name="Congrats" type="AudioStreamPlayer" parent="Audio" index="4"]
+stream = ExtResource( 12 )
 [connection signal="body_entered" from="Detection/RoomDetector_1" to="." method="_on_RoomDetector_1_body_entered"]
 [connection signal="body_entered" from="Detection/RoomDetector_2" to="." method="_on_RoomDetector_2_body_entered"]
 [connection signal="body_entered" from="Detection/RoomDetector_3" to="." method="_on_RoomDetector_3_body_entered"]
 [connection signal="body_entered" from="Detection/RoomDetector_4" to="." method="_on_RoomDetector_4_body_entered"]
 [connection signal="body_entered" from="Detection/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Detection/Hurry" to="." method="_on_Hurry_body_entered"]
+[connection signal="body_entered" from="Detection/WaterDetector" to="." method="_on_WaterDetector_body_entered"]
+[connection signal="body_exited" from="Detection/WaterDetector" to="." method="_on_WaterDetector_body_exited"]

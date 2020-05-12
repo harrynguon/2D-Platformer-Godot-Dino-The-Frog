@@ -6,6 +6,12 @@ onready var invisWall = preload("res://InvisWall.tscn")
 
 var currentRoom = 0
 var activated_wall = false
+var has_played_hurry = false
+
+func _ready():
+	# Only play in main menu
+	#$Audio/Music.play()
+	pass
 	
 func tweenIt(start : Vector2, end : Vector2) -> Tween:
 	var tween = $Tween
@@ -51,4 +57,21 @@ func _on_RoomDetector_4_body_entered(_body):
 
 func _on_Area2D_body_entered(body):
 	get_tree().paused = true
+	$Audio/Congrats.play()
 	# Victory pop up here
+
+
+func _on_Hurry_body_entered(body):
+	if not has_played_hurry:
+		$Audio/Hurry_Sound.play()
+		has_played_hurry = true
+
+
+func _on_WaterDetector_body_entered(body):
+	if body.has_method("is_player"):
+		$Audio/Get_In_Water.play()
+
+
+func _on_WaterDetector_body_exited(body):
+	if body.has_method("is_player"):
+		$Audio/Get_Out_Water.play()
