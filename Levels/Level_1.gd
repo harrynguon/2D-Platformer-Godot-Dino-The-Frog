@@ -10,8 +10,7 @@ var has_played_hurry = false
 
 func _ready():
 	# Only play in main menu
-	#$Audio/Music.play()
-	pass
+	$Audio/Music.play()
 	
 func tweenIt(start : Vector2, end : Vector2) -> Tween:
 	var tween = $Tween
